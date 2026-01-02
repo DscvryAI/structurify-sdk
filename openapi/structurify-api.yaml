@@ -1,0 +1,708 @@
+openapi: 3.0.3
+info:
+  title: Structurify API
+  description: |
+    AI-powered document extraction API. Extract structured data from PDFs, images, and documents.
+
+    ## Authentication
+    All endpoints require an API key passed via `Authorization: Bearer <api_key>` header.
+
+    ## Rate Limits
+    - 60 requests per minute (default)
+    - 10,000 requests per day (default)
+
+    ## Credits
+    Document extractions consume credits: 1 credit = 1 document extracted.
+  version: 1.0.0
+  contact:
+    email: support@structurify.ai
+    url: https://dscvryai.com
+  license:
+    name: MIT
+    identifier: MIT
+  x-copyright: Copyright (c) 2026 REDSCVRY TECHNOLOGY PRIVATE LIMITED
+
+servers:
+  - url: https://app.structurify.ai/api
+    description: Production API
+
+security:
+  - ApiKeyAuth: []
+
+tags:
+  - name: Templates
+    description: Project and column templates
+  - name: Projects
+    description: Project management
+  - name: Documents
+    description: Document upload and management
+  - name: Extraction
+    description: AI extraction jobs
+  - name: Exports
+    description: Data export
+
+paths:
+  /project-templates:
+    get:
+      tags: [Templates]
+      summary: List project templates
+      description: Get all available project templates with their column definitions.
+      operationId: listProjectTemplates
+      responses:
+        '200':
+          description: List of project templates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  templates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProjectTemplate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /templates:
+    get:
+      tags: [Templates]
+      summary: List column templates
+      description: Get all available column templates for customizing projects.
+      operationId: listColumnTemplates
+      responses:
+        '200':
+          description: List of column templates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  templates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ColumnTemplate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /projects:
+    get:
+      tags: [Projects]
+      summary: List projects
+      description: Get all projects for the authenticated user.
+      operationId: listProjects
+      responses:
+        '200':
+          description: List of projects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  projects:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      tags: [Projects]
+      summary: Create a project
+      description: Create a new project from a template. Template ID is required.
+      operationId: createProject
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, templateId]
+              properties:
+                name:
+                  type: string
+                  description: Project name
+                  example: "Q1 2026 Invoices"
+                templateId:
+                  type: string
+                  description: Project template ID (required)
+                  example: "tpl_invoice"
+      responses:
+        '201':
+          description: Project created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  project:
+                    $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /projects/{projectId}:
+    get:
+      tags: [Projects]
+      summary: Get project details
+      description: Get project with columns and documents.
+      operationId: getProject
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Project details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  project:
+                    $ref: '#/components/schemas/Project'
+                  columns:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Column'
+                  documents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Document'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    delete:
+      tags: [Projects]
+      summary: Delete a project
+      description: Delete a project and all its documents.
+      operationId: deleteProject
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Project deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /documents:
+    post:
+      tags: [Documents]
+      summary: Upload a document
+      description: Upload a document to a project. Supports PDF, images, and office documents.
+      operationId: uploadDocument
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [projectId, file]
+              properties:
+                projectId:
+                  type: string
+                  description: Project ID
+                file:
+                  type: string
+                  format: binary
+                  description: Document file (PDF, PNG, JPG, DOCX, XLSX, etc.)
+                name:
+                  type: string
+                  description: Optional custom name for the document
+          application/json:
+            schema:
+              type: object
+              required: [projectId, content, mimeType, fileName]
+              properties:
+                projectId:
+                  type: string
+                content:
+                  type: string
+                  format: byte
+                  description: Base64-encoded file content
+                mimeType:
+                  type: string
+                  example: "application/pdf"
+                fileName:
+                  type: string
+                  example: "invoice.pdf"
+      responses:
+        '201':
+          description: Document uploaded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  document:
+                    $ref: '#/components/schemas/Document'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '413':
+          description: Document too large
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /documents/{documentId}:
+    get:
+      tags: [Documents]
+      summary: Get document metadata
+      operationId: getDocument
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Document metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  document:
+                    $ref: '#/components/schemas/Document'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    delete:
+      tags: [Documents]
+      summary: Delete a document
+      operationId: deleteDocument
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Document deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /documents/{documentId}/content:
+    get:
+      tags: [Documents]
+      summary: Get document content
+      description: Get document content as base64-encoded data.
+      operationId: getDocumentContent
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Document content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  content:
+                    type: string
+                    format: byte
+                    description: Base64-encoded document content
+                  mimeType:
+                    type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /extraction-jobs:
+    post:
+      tags: [Extraction]
+      summary: Run extraction
+      description: |
+        Start an extraction job for a project. Extracts all columns for all documents.
+        Consumes 1 credit per document extracted.
+      operationId: createExtractionJob
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [projectId]
+              properties:
+                projectId:
+                  type: string
+                  description: Project ID to extract
+      responses:
+        '201':
+          description: Extraction job created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  job:
+                    $ref: '#/components/schemas/ExtractionJob'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          description: Insufficient credits
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /extraction-jobs/{jobId}:
+    get:
+      tags: [Extraction]
+      summary: Get extraction job status
+      operationId: getExtractionJob
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Job status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  job:
+                    $ref: '#/components/schemas/ExtractionJob'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    delete:
+      tags: [Extraction]
+      summary: Cancel extraction job
+      operationId: cancelExtractionJob
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Job cancelled
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /exports:
+    post:
+      tags: [Exports]
+      summary: Create an export
+      description: Export project data as CSV or JSON.
+      operationId: createExport
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [projectId, format]
+              properties:
+                projectId:
+                  type: string
+                format:
+                  type: string
+                  enum: [csv, json]
+                  description: Export format
+                documentIds:
+                  type: array
+                  items:
+                    type: string
+                  description: Optional list of document IDs to export (default all)
+      responses:
+        '200':
+          description: Export created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  export:
+                    $ref: '#/components/schemas/Export'
+                  data:
+                    type: string
+                    description: Inline data if export is small (<1MB)
+                  downloadUrl:
+                    type: string
+                    description: Download URL if export is large
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /exports/{exportId}/download:
+    get:
+      tags: [Exports]
+      summary: Download export file
+      operationId: downloadExport
+      parameters:
+        - name: exportId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Export file
+          content:
+            text/csv:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: http
+      scheme: bearer
+      description: API key (sk_live_xxx format)
+
+  schemas:
+    ProjectTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "tpl_invoice"
+        name:
+          type: string
+          example: "Invoice Processing"
+        description:
+          type: string
+        category:
+          type: string
+          example: "finance"
+        columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnTemplate'
+
+    ColumnTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+          example: "Invoice Number"
+        prompt:
+          type: string
+          example: "Extract the invoice number"
+        format:
+          type: string
+          enum: [text, number, date, boolean, list, table, object]
+        category:
+          type: string
+
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "proj_abc123"
+        name:
+          type: string
+        templateId:
+          type: string
+        documentCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    Column:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        prompt:
+          type: string
+        format:
+          type: string
+        position:
+          type: integer
+
+    Document:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "doc_xyz789"
+        name:
+          type: string
+        mimeType:
+          type: string
+        size:
+          type: integer
+          description: File size in bytes
+        status:
+          type: string
+          enum: [pending, processing, done, error]
+        createdAt:
+          type: string
+          format: date-time
+
+    ExtractionJob:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "job_abc123"
+        projectId:
+          type: string
+        status:
+          type: string
+          enum: [pending, processing, done, error, cancelled]
+        totalTasks:
+          type: integer
+        completedTasks:
+          type: integer
+        failedTasks:
+          type: integer
+        progress:
+          type: integer
+          description: Percentage complete (0-100)
+        mode:
+          type: string
+          enum: [sync, async]
+        createdAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+
+    Export:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        format:
+          type: string
+          enum: [csv, json]
+        status:
+          type: string
+          enum: [pending, ready, error]
+        createdAt:
+          type: string
+          format: date-time
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: "ValidationError"
+            message: "Template ID is required"
+
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: "Unauthorized"
+            message: "Authentication required"
+
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: "NotFound"
+            message: "Resource not found"
