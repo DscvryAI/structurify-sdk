@@ -1,6 +1,9 @@
 # Structurify Node.js SDK
 
-Official Node.js SDK for the Structurify document extraction API.
+[![npm version](https://img.shields.io/npm/v/@structurify/sdk.svg)](https://www.npmjs.com/package/@structurify/sdk)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](../LICENSE)
+
+Official Node.js SDK for the [Structurify](https://structurify.ai) document extraction API.
 
 ## Installation
 
