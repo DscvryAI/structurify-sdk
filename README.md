@@ -1,6 +1,10 @@
 # Structurify SDK
 
-Official SDKs for the Structurify document extraction API.
+[![npm version](https://img.shields.io/npm/v/@structurify/sdk.svg)](https://www.npmjs.com/package/@structurify/sdk)
+[![PyPI version](https://img.shields.io/pypi/v/structurify.svg)](https://pypi.org/project/structurify/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+Official SDKs for the [Structurify](https://structurify.ai) document extraction API.
 
 ## Overview
 
@@ -13,11 +17,11 @@ Structurify is an AI-powered document extraction platform. These SDKs provide pr
 
 ## Available SDKs
 
-| Language | Package | Status |
-|----------|---------|--------|
-| Python | `structurify` | Available |
-| Node.js | `@structurify/sdk` | Available |
-| REST API | OpenAPI Spec | Available |
+| Language | Package | Install |
+|----------|---------|---------|
+| Python | [`structurify`](https://pypi.org/project/structurify/) | `pip install structurify` |
+| Node.js | [`@structurify/sdk`](https://www.npmjs.com/package/@structurify/sdk) | `npm install @structurify/sdk` |
+| REST API | [OpenAPI Spec](openapi/structurify-api.yaml) | See cURL examples below |
 
 ## Quick Start
 

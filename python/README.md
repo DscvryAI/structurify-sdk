@@ -1,6 +1,10 @@
 # Structurify Python SDK
 
-Official Python SDK for the Structurify document extraction API.
+[![PyPI version](https://img.shields.io/pypi/v/structurify.svg)](https://pypi.org/project/structurify/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/structurify.svg)](https://pypi.org/project/structurify/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](../LICENSE)
+
+Official Python SDK for the [Structurify](https://structurify.ai) document extraction API.
 
 ## Installation
 
