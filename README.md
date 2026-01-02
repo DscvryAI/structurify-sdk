@@ -3,11 +3,11 @@
 [![npm version](https://img.shields.io/npm/v/@structurify/sdk.svg)](https://www.npmjs.com/package/@structurify/sdk)
 [![PyPI version](https://img.shields.io/pypi/v/structurify.svg)](https://pypi.org/project/structurify/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/structurify/structurify-sdk/blob/main/examples/structurify_quickstart.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DscvryAI/structurify-sdk/blob/main/examples/structurify_quickstart.ipynb)
 
 Official SDKs for the [Structurify](https://structurify.ai) document extraction API.
 
-**Try it out:** [Open the interactive Colab notebook](https://colab.research.google.com/github/structurify/structurify-sdk/blob/main/examples/structurify_quickstart.ipynb) to get started in minutes!
+**Try it out:** [Open the interactive Colab notebook](https://colab.research.google.com/github/DscvryAI/structurify-sdk/blob/main/examples/structurify_quickstart.ipynb) to get started in minutes!
 
 ## Document Type Notebooks
 
@@ -27,8 +27,8 @@ We provide **169 ready-to-use Colab notebooks** for specific document types:
 
 We also provide **169 TypeScript examples** for Node.js developers:
 
-[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/structurify/structurify-sdk/tree/main/examples/codesandbox)
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/structurify/structurify-sdk/tree/main/examples/codesandbox)
+[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/DscvryAI/structurify-sdk/tree/main/examples/codesandbox)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/DscvryAI/structurify-sdk/tree/main/examples/codesandbox)
 
 ```bash
 # Quick start

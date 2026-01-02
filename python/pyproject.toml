@@ -49,8 +49,8 @@ dev = [
 [project.urls]
 Homepage = "https://structurify.ai"
 Documentation = "https://docs.structurify.ai"
-Repository = "https://github.com/structurify/structurify-sdk"
-Changelog = "https://github.com/structurify/structurify-sdk/blob/main/CHANGELOG.md"
+Repository = "https://github.com/DscvryAI/structurify-sdk"
+Changelog = "https://github.com/DscvryAI/structurify-sdk/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["."]

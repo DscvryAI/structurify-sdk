@@ -43,12 +43,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/structurify/structurify-sdk.git",
+    "url": "https://github.com/DscvryAI/structurify-sdk.git",
     "directory": "nodejs"
   },
   "homepage": "https://structurify.ai",
   "bugs": {
-    "url": "https://github.com/structurify/structurify-sdk/issues"
+    "url": "https://github.com/DscvryAI/structurify-sdk/issues"
   },
   "engines": {
     "node": ">=18.0.0"

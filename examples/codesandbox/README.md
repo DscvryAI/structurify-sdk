@@ -1,7 +1,7 @@
 # Structurify SDK - Interactive Example
 
-[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/structurify/structurify-sdk/tree/main/examples/codesandbox)
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/structurify/structurify-sdk/tree/main/examples/codesandbox)
+[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/DscvryAI/structurify-sdk/tree/main/examples/codesandbox)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/DscvryAI/structurify-sdk/tree/main/examples/codesandbox)
 
 This is an interactive example demonstrating the Structurify SDK for Node.js/TypeScript.
 

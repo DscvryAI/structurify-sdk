@@ -7,7 +7,7 @@
  * Try it live: https://structurify.ai/extract
  * Documentation: https://docs.structurify.ai
  *
- * @see https://github.com/structurify/structurify-sdk
+ * @see https://github.com/DscvryAI/structurify-sdk
  */
 
 import { Structurify } from '@structurify/sdk';
@@ -176,7 +176,7 @@ async function main() {
   All Templates: https://structurify.ai/extract
   npm Package:   https://www.npmjs.com/package/@structurify/sdk
   Python SDK:    https://pypi.org/project/structurify/
-  GitHub:        https://github.com/structurify/structurify-sdk
+  GitHub:        https://github.com/DscvryAI/structurify-sdk
 `);
 }
 
