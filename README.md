@@ -3,8 +3,41 @@
 [![npm version](https://img.shields.io/npm/v/@structurify/sdk.svg)](https://www.npmjs.com/package/@structurify/sdk)
 [![PyPI version](https://img.shields.io/pypi/v/structurify.svg)](https://pypi.org/project/structurify/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/structurify/structurify-sdk/blob/main/examples/structurify_quickstart.ipynb)
 
 Official SDKs for the [Structurify](https://structurify.ai) document extraction API.
+
+**Try it out:** [Open the interactive Colab notebook](https://colab.research.google.com/github/structurify/structurify-sdk/blob/main/examples/structurify_quickstart.ipynb) to get started in minutes!
+
+## Document Type Notebooks
+
+We provide **169 ready-to-use Colab notebooks** for specific document types:
+
+| Category | Examples |
+|----------|----------|
+| **Financial** | [Invoice](examples/notebooks/invoice-processing.ipynb), [Bank Statement](examples/notebooks/bank-statement.ipynb), [Receipt](examples/notebooks/receipt.ipynb), [W-2](examples/notebooks/irs-form-w-2.ipynb) |
+| **Legal** | [Contract](examples/notebooks/commercial-contract.ipynb), [NDA](examples/notebooks/non-disclosure-agreement-nda.ipynb), [Power of Attorney](examples/notebooks/power-of-attorney.ipynb) |
+| **Healthcare** | [Medical Record](examples/notebooks/medical-record.ipynb), [Insurance Claim](examples/notebooks/medical-insurance-claim.ipynb), [Lab Report](examples/notebooks/laboratory-test-report.ipynb) |
+| **Real Estate** | [Lease Agreement](examples/notebooks/lease-agreement.ipynb), [Deed](examples/notebooks/deed.ipynb), [Appraisal](examples/notebooks/uniform-residential-appraisal-report.ipynb) |
+| **HR** | [Resume](examples/notebooks/resume-cv.ipynb), [Offer Letter](examples/notebooks/offer-letter.ipynb), [I-9](examples/notebooks/i-9-employment-eligibility.ipynb) |
+
+**[Browse all 169 notebooks →](examples/NOTEBOOKS.md)** | **[Try online at structurify.ai/extract →](https://structurify.ai/extract)**
+
+## Node.js/TypeScript Examples
+
+We also provide **169 TypeScript examples** for Node.js developers:
+
+[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/structurify/structurify-sdk/tree/main/examples/codesandbox)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/structurify/structurify-sdk/tree/main/examples/codesandbox)
+
+```bash
+# Quick start
+npm install @structurify/sdk
+export STRUCTURIFY_API_KEY=sk_live_your_api_key
+npx ts-node examples/nodejs/invoice-processing.ts ./invoice.pdf
+```
+
+**[Browse all 169 TypeScript examples →](examples/NODEJS_EXAMPLES.md)**
 
 ## Overview
 
@@ -199,9 +232,10 @@ Check your balance via the web dashboard or API.
 
 ## Support
 
-- Documentation: https://docs.structurify.ai
-- Website: https://dscvryai.com
-- Email: support@structurify.ai
+- **Website:** [structurify.ai](https://structurify.ai)
+- **Documentation:** [docs.structurify.ai](https://docs.structurify.ai)
+- **All Templates:** [structurify.ai/extract](https://structurify.ai/extract)
+- **Email:** support@structurify.ai
 
 ## License
 

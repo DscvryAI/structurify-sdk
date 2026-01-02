@@ -51,3 +51,8 @@ yarn-error.log*
 # Temporary files
 tmp/
 temp/
+
+# Raw data files (not for commit)
+templates-raw.json
+scripts/
+.ai-index.yaml

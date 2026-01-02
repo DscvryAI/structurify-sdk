@@ -1,0 +1,29 @@
+{
+  "name": "structurify-nodejs-example",
+  "version": "1.0.0",
+  "description": "Structurify SDK Example - Document Data Extraction",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node index.ts",
+    "build": "tsc"
+  },
+  "keywords": [
+    "structurify",
+    "document-extraction",
+    "ocr",
+    "ai",
+    "invoice",
+    "receipt",
+    "pdf"
+  ],
+  "author": "Structurify",
+  "license": "MIT",
+  "dependencies": {
+    "@structurify/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}
